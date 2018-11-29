@@ -1,0 +1,7 @@
+.tabelaProduto table, th, td {
+    border: 1px solid black;
+}
+.tabelaProduto{
+    width: 700px;
+
+}
