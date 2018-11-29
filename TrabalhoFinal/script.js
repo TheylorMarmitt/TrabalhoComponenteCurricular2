@@ -160,7 +160,7 @@
 
             let tr = $('<tr>');
 
-            let tdNome = $('<td>').text(cidade.nome);
+            let tdNome = $('<td>').text(cidade.nome).addClass("cidade");
             let tdEstado = $('<td>').text(cidade.estado);
             let tdOpcoes = $('<td>');
 
@@ -198,7 +198,7 @@
 
             let tdFuncao = $('<td>').text(profissao.funcao);
             let tdArea = $('<td>').text(profissao.area);
-            let tdSalario = $('<td>').text(profissao.salario);
+            let tdSalario = $('<td>').text(profissao.salario).addClass("salario");
             let tdOpcoes = $('<td>');
 
             tr.append(tdFuncao)
@@ -336,10 +336,10 @@
     }
 
     buscaDoLocalStorageFuncionario();
-    renderizaFuncionario();
     buscaDoLocalStorageCidade();
-    renderizaCidade();
     buscaDoLocalStorageProfissao();
+    renderizaFuncionario();
+    renderizaCidade();
     renderizaProfissao();
 
     $("#formulario-funcionario").on("submit", function(evt){
@@ -427,10 +427,10 @@
     function buscaDoLocalStorageProfissao(){
         const listaStorage = localStorage.getItem("lista");
         listaProfissoes = JSON.parse(listaStorage) || [];
-    }
-
+    }    
+    
     /// botoes menu
-
+    
     $("#div-funcionario").hide();
     $("#div-cidade").hide();
     $("#div-profissao").hide();
@@ -439,6 +439,10 @@
         $("#div-funcionario").show();
         $("#div-cidade").hide();
         $("#div-profissao").hide();
+        var nomeCidade = $(".cidade").last().text();
+        $("#cidade-funcionario").text(nomeCidade);
+        var salario = $(".salario").last().text();
+        $("#salario-funcionario").text(salario);
 
     });
 
