@@ -431,6 +431,10 @@
 
     /// botoes menu
 
+    $("#div-funcionario").hide();
+    $("#div-cidade").hide();
+    $("#div-profissao").hide();
+
     $("#btn-cadastro-funcionario").click(function(){
         $("#div-funcionario").show();
         $("#div-cidade").hide();
