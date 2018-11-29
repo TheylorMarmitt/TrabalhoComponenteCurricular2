@@ -1,7 +1,30 @@
-.tabelaProduto table, th, td {
+
+#tabelaFuncionario #tabelaCidade #tabelaProfissao table, th, td {
     border: 1px solid black;
 }
-.tabelaProduto{
+
+#tabelaFuncionario #tabelaCidade #tabelaProfissao{
     width: 700px;
 
+}
+
+nav{
+    height: 600px;
+    width: 200px;
+    float: left;
+    background-color: #eee;
+    margin-right: 20px;
+}
+
+nav ul li{
+    display: inline;
+    padding: 15px 10px;
+    color: #fff;
+
+}
+
+nav ul li button{
+    height: 40px;
+    width: 100px;
+    margin-top: 30px;
 }

@@ -1,3 +1,4 @@
+
 (function() {
 
     var listaFuncionarios = [];
@@ -9,12 +10,12 @@
         var funcionario = {};
 
         funcionario.nome = $("#nome-funcionario").val();
-        funcionario.cpf = $("#cpf-produto").val();
+        funcionario.cpf = $("#cpf-funcionario").val();
         funcionario.nascimento = $("#data-funcionario").val();
         funcionario.cidade = $("#cidade-funcionario").val();
         funcionario.salario = $("#salario-funcionario").val();
 
-        let id = $("#id-produto").val();
+        let id = $("#id-funcionario").val();
 
         if(id == undefined || id == ''){
             funcionario.id = new Date().getTime();
@@ -212,7 +213,7 @@
             btnEditar.click(function(){
                 editarProfissao(profissao.id);
             });
-            
+
             btnExcluir.click(function(){
                 excluirProfissao(profissao.id);
             });
@@ -259,7 +260,7 @@
              alert('Não foi possível encontrar a cidade');
          }
      }
-    
+
      // exclui cidade
      function excluirCidade(id){
         listaCidades = listaCidades
@@ -400,7 +401,7 @@
         const listaEmJSON = JSON.stringify(listaFuncionarios);
         localStorage.setItem("lista", listaEmJSON);
     }
-    
+
     function buscaDoLocalStorageFuncionario(){
         const listaStorage = localStorage.getItem("lista");
         listaFuncionarios = JSON.parse(listaStorage) || [];
@@ -411,7 +412,7 @@
         const listaEmJSON = JSON.stringify(listaCidades);
         localStorage.setItem("lista", listaEmJSON);
     }
-    
+
     function buscaDoLocalStorageCidade(){
         const listaStorage = localStorage.getItem("lista");
         listaCidades = JSON.parse(listaStorage) || [];
@@ -422,10 +423,25 @@
         const listaEmJSON = JSON.stringify(listaProfissoes);
         localStorage.setItem("lista", listaEmJSON);
     }
-    
+
     function buscaDoLocalStorageProfissao(){
         const listaStorage = localStorage.getItem("lista");
         listaProfissoes = JSON.parse(listaStorage) || [];
     }
+
+    /// botoes menu
+
+    $("#btn-cadastro-funcionario").click(function(){
+
+    });
+
+    $("#btn-cadastro-cidade").click(function(){
+
+    });
+
+    $("#btn-cadastro-profissao").click(function(){
+
+    });
+
 
 })();

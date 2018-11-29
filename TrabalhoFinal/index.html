@@ -10,7 +10,13 @@
 </head>
 
 <body>
-
+    <nav>
+        <ul>
+            <li><button id="btn-cadastro-funcionario">Cadastro funcionario</button></li>
+            <li><button id="btn-cadastro-cidade">Cadastro cidade</button></li>
+            <li><button id="btn-cadastro-profissao">Cadastro profissão</button></li>
+        </ul>
+    </nav>
     <div id="div-funcionario">
         <form id="formulario-funcionario">
             <fieldset>
@@ -32,11 +38,11 @@
                 </div>
                 <div>
                     <label>Cidade:</label>
-                    <label id="cidade-funcionario" required="required"></label> 
+                    <label id="cidade-funcionario" required="required"></label>
                 </div>
                 <div>
                     <label>Salario:</label>
-                    <label id="salario-funcionario" required="required"></label> 
+                    <label id="salario-funcionario" required="required"></label>
                 </div>
                 <button type="submit">Adicionar</button>
             </fieldset>
@@ -51,7 +57,7 @@
                     <th>Salario</th>
                 </thead>
                 <tbody id="corpo-funcionario">
-    
+
                 </tbody>
             </table>
         </div>
@@ -73,7 +79,7 @@
                 </div>
                 <div>
                     <button type="submit">Adicionar</button>
-                </div> 
+                </div>
             </fieldset>
         </form>
         <div class="cidade">
@@ -84,7 +90,7 @@
                     <th id="opcoes">Opções</th>
                 </thead>
                 <tbody id="corpo-cidade">
-    
+
                 </tbody>
             </table>
         </div>
@@ -111,7 +117,7 @@
                 </div>
                 <div>
                     <button type="submit">Adicionar</button>
-                </div>                   
+                </div>
             </fieldset>
         </form>
         <div>
@@ -122,11 +128,11 @@
                     <th>Salario</th>
                 </thead>
                 <tbody id="corpo-profissao">
-    
+
                 </tbody>
             </table>
         </div>
-    </div>    
+    </div>
 
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
     <script type="text/javascript" src="script.js"></script>
