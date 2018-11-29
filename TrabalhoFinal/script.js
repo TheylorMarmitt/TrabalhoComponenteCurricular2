@@ -432,15 +432,22 @@
     /// botoes menu
 
     $("#btn-cadastro-funcionario").click(function(){
+        $("#div-funcionario").show();
+        $("#div-cidade").hide();
+        $("#div-profissao").hide();
 
     });
 
     $("#btn-cadastro-cidade").click(function(){
-
+        $("#div-funcionario").hide();
+        $("#div-cidade").show();
+        $("#div-profissao").hide();
     });
 
     $("#btn-cadastro-profissao").click(function(){
-
+        $("#div-funcionario").hide();
+        $("#div-cidade").hide();
+        $("#div-profissao").show();
     });
 
 
