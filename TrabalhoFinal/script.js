@@ -32,7 +32,7 @@
                 funcionarioExistente.salario = funcionario.salario;
             }
         }
-        gravaNoLocalStorageFuncionario()
+        gravaNoLocalStorageFuncionario();
         renderizaFuncionario();
         return false;
     }
@@ -57,7 +57,7 @@
 
             }
         }
-        gravaNoLocalStorageCidade()
+        gravaNoLocalStorageCidade();
         renderizaCidade();
         return false;
     }
@@ -85,7 +85,7 @@
 
             }
         }
-        gravaNoLocalStorageProfissao()
+        gravaNoLocalStorageProfissao();
         renderizaProfissao();
         return false;
     }
@@ -245,7 +245,7 @@
              .filter(function(value){
                  return value.id != id;
              });
-        gravaNoLocalStorageFuncionario()
+        gravaNoLocalStorageFuncionario();
         renderizaFuncionario();
     }
     // edita cidade
@@ -267,7 +267,7 @@
             .filter(function(value){
                 return value.id != id;
             });
-        gravaNoLocalStorageCidade()
+        gravaNoLocalStorageCidade();
         renderizaCidade();
     }
 
@@ -289,7 +289,7 @@
         .filter(function(value){
             return value.id != id;
         });
-        gravaNoLocalStorageProfissao()
+        gravaNoLocalStorageProfissao();
         renderizaProfissao();
     }
 
