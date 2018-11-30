@@ -12,8 +12,8 @@
         funcionario.nome = $("#nome-funcionario").val();
         funcionario.cpf = $("#cpf-funcionario").val();
         funcionario.nascimento = $("#data-funcionario").val();
-        funcionario.cidade = $("#cidade-funcionario").val();
-        funcionario.salario = $("#salario-funcionario").val();
+        funcionario.cidade = $("#cidade-funcionario").text();
+        funcionario.salario = $("#salario-funcionario").text();
 
         let id = $("#id-funcionario").val();
 
@@ -34,6 +34,7 @@
         }
         gravaNoLocalStorageFuncionario();
         renderizaFuncionario();
+        limparFuncionario();
         return false;
     }
     // salva cidade
@@ -59,6 +60,7 @@
         }
         gravaNoLocalStorageCidade();
         renderizaCidade();
+        limparCidade();
         return false;
     }
 
@@ -78,7 +80,7 @@
             let idNumber = parseInt(id);
             let profissaoExistente = findProfissaoById(idNumber);
 
-            if(cidadeExistente){
+            if(profissaoExistente){
                 profissaoExistente.funcao = profissao.funcao;
                 profissaoExistente.area = profissao.area;
                 profissaoExistente.salario = profissao.salario;
@@ -87,12 +89,15 @@
         }
         gravaNoLocalStorageProfissao();
         renderizaProfissao();
+        limparProfissao();
         return false;
     }
 
     // limpa funcionario
     function limparFuncionario(){
         $("#formulario-funcionario input").val('');
+        $("#cidade-funcionario").empty();
+        $("#salario-funcionario").empty();
     }
     // limpa cidade
     function limparCidade(){
@@ -105,9 +110,9 @@
 
     // renderiza Funcionario
     function renderizaFuncionario(){
-        const tbody = $("#corpo-funcionario");
+        const tbodyFuncionario = $("#corpo-funcionario");
 
-        tbody.html('');
+        tbodyFuncionario.html('');
 
         for(let i=0; i<listaFuncionarios.length; i++){
 
@@ -144,15 +149,15 @@
             btnExcluir.click(fn_exc);
 
             tdOpcoes.append(btnEditar).append(btnExcluir);
-            tbody.append(tr);
+            tbodyFuncionario.append(tr);
         }
     }
 
     // renderiza Cidade
     function renderizaCidade(){
-        const tbody = $("#corpo-cidade");
+        const tbodyCidade = $("#corpo-cidade");
 
-        tbody.html('');
+        tbodyCidade.html('');
 
         for(let i=0; i<listaCidades.length; i++){
 
@@ -160,7 +165,7 @@
 
             let tr = $('<tr>');
 
-            let tdNome = $('<td>').text(cidade.nome).addClass("cidade");
+            let tdNome = $('<td>').text(cidade.nome).addClass("cidadeAdd");
             let tdEstado = $('<td>').text(cidade.estado);
             let tdOpcoes = $('<td>');
 
@@ -181,14 +186,14 @@
             });
 
             tdOpcoes.append(btnEditar).append(btnExcluir);
-            tbody.append(tr);
+            tbodyCidade.append(tr);
         }
     }
     // renderiza profissao
     function renderizaProfissao(){
-        const tbody = $("#corpo-profissao");
+        const tbodyProfissao = $("#corpo-profissao");
 
-        tbody.html('');
+        tbodyProfissao.html('');
 
         for(let i=0; i<listaProfissoes.length; i++){
 
@@ -219,7 +224,7 @@
             });
 
             tdOpcoes.append(btnEditar).append(btnExcluir);
-            tbody.append(tr);
+            tbodyProfissao.append(tr);
         }
     }
 
@@ -233,7 +238,7 @@
              $("#data-funcionario").val(funcionario.data);
              $("#cidade-funcionario").val(funcionario.cidade);
              $("#salario-funcionario").val(funcionario.salario);
-             $("#id-produto").val(funcionario.id);
+             $("#id-funcionario").val(funcionario.id);
          }else{
              alert('Não foi possível encontrar o funcionario');
          }
@@ -278,7 +283,7 @@
             $("#funcao").val(profissao.funcao);
             $("#area").val(profissao.area);
             $("#salario").val(profissao.salario);
-            $("#id-cidade").val(profissao.id);
+            $("#id-profissao").val(profissao.id);
         }else{
             alert('Não foi possível encontrar a profissao');
         }
@@ -427,10 +432,10 @@
     function buscaDoLocalStorageProfissao(){
         const listaStorage = localStorage.getItem("lista");
         listaProfissoes = JSON.parse(listaStorage) || [];
-    }    
-    
+    }
+
     /// botoes menu
-    
+
     $("#div-funcionario").hide();
     $("#div-cidade").hide();
     $("#div-profissao").hide();
@@ -439,7 +444,7 @@
         $("#div-funcionario").show();
         $("#div-cidade").hide();
         $("#div-profissao").hide();
-        var nomeCidade = $(".cidade").last().text();
+        var nomeCidade = $(".cidadeAdd").last().text();
         $("#cidade-funcionario").text(nomeCidade);
         var salario = $(".salario").last().text();
         $("#salario-funcionario").text(salario);
