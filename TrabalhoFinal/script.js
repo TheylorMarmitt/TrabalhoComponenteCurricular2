@@ -5,8 +5,11 @@
     var listaCidades = [];
     var listaProfissoes = [];
 
+
     // salva funcionario
     function salvarFuncionario(){
+        selecionaCidade();
+
         var funcionario = {};
 
         funcionario.nome = $("#nome-funcionario").val();
@@ -15,8 +18,12 @@
         funcionario.cidade = $("#cidade-funcionario").text();
         funcionario.salario = $("#salario-funcionario").text();
 
+        funcionario.estado = $("#estado-funcionario").val();
+        funcionario.funcao = $("#funcao-funcionario").val();
+        funcionario.area = $("#area-funcionario").val();
+        
         let id = $("#id-funcionario").val();
-
+        
         if(id == undefined || id == ''){
             funcionario.id = new Date().getTime();
             listaFuncionarios.push(funcionario);
@@ -35,6 +42,7 @@
         gravaNoLocalStorageFuncionario();
         renderizaFuncionario();
         limparFuncionario();
+        selecionaCidade();
         return false;
     }
     // salva cidade
@@ -166,7 +174,7 @@
             let tr = $('<tr>');
 
             let tdNome = $('<td>').text(cidade.nome).addClass("cidadeAdd");
-            let tdEstado = $('<td>').text(cidade.estado);
+            let tdEstado = $('<td>').text(cidade.estado).addClass("estadoAdd");
             let tdOpcoes = $('<td>');
 
             tr.append(tdNome)
@@ -201,8 +209,8 @@
 
             let tr = $('<tr>');
 
-            let tdFuncao = $('<td>').text(profissao.funcao);
-            let tdArea = $('<td>').text(profissao.area);
+            let tdFuncao = $('<td>').text(profissao.funcao).addClass("funcaoAdd");
+            let tdArea = $('<td>').text(profissao.area).addClass("areaAdd");
             let tdSalario = $('<td>').text(profissao.salario).addClass("salario");
             let tdOpcoes = $('<td>');
 
@@ -239,6 +247,10 @@
              $("#cidade-funcionario").val(funcionario.cidade);
              $("#salario-funcionario").val(funcionario.salario);
              $("#id-funcionario").val(funcionario.id);
+
+             $("#funcao-funcionario").val(funcionario.funcao);
+             $("#area-funcionario").val(funcionario.area);
+             $("#estado-funcionario").val(funcionario.estado);
          }else{
              alert('Não foi possível encontrar o funcionario');
          }
@@ -340,13 +352,6 @@
 
     }
 
-    buscaDoLocalStorageFuncionario();
-    buscaDoLocalStorageCidade();
-    buscaDoLocalStorageProfissao();
-    renderizaFuncionario();
-    renderizaCidade();
-    renderizaProfissao();
-
     $("#formulario-funcionario").on("submit", function(evt){
         salvarFuncionario();
         evt.stopPropagation();
@@ -403,36 +408,43 @@
 
     /// funcionario
     function gravaNoLocalStorageFuncionario(){
-        const listaEmJSON = JSON.stringify(listaFuncionarios);
-        localStorage.setItem("lista", listaEmJSON);
+        const listaEmJSONFuncionario = JSON.stringify(listaFuncionarios);
+        localStorage.setItem("lista", listaEmJSONFuncionario);
     }
 
     function buscaDoLocalStorageFuncionario(){
-        const listaStorage = localStorage.getItem("lista");
-        listaFuncionarios = JSON.parse(listaStorage) || [];
+        const listaStorageFuncionario = localStorage.getItem("lista");
+        listaFuncionarios = JSON.parse(listaStorageFuncionario) || [];
     }
 
     //// cidade
     function gravaNoLocalStorageCidade(){
-        const listaEmJSON = JSON.stringify(listaCidades);
-        localStorage.setItem("lista", listaEmJSON);
+        const listaEmJSONCidade = JSON.stringify(listaCidades);
+        localStorage.setItem("lista", listaEmJSONCidade);
     }
 
     function buscaDoLocalStorageCidade(){
-        const listaStorage = localStorage.getItem("lista");
-        listaCidades = JSON.parse(listaStorage) || [];
+        const listaStorageCidade = localStorage.getItem("lista");
+        listaCidades = JSON.parse(listaStorageCidade) || [];
     }
 
     // profissao
     function gravaNoLocalStorageProfissao(){
-        const listaEmJSON = JSON.stringify(listaProfissoes);
-        localStorage.setItem("lista", listaEmJSON);
+        const listaEmJSONProfissao = JSON.stringify(listaProfissoes);
+        localStorage.setItem("lista", listaEmJSONProfissao);
     }
 
     function buscaDoLocalStorageProfissao(){
-        const listaStorage = localStorage.getItem("lista");
-        listaProfissoes = JSON.parse(listaStorage) || [];
+        const listaStorageProfissao = localStorage.getItem("lista");
+        listaProfissoes = JSON.parse(listaStorageProfissao) || [];
     }
+
+    buscaDoLocalStorageFuncionario();
+    renderizaFuncionario();
+    buscaDoLocalStorageCidade();
+    buscaDoLocalStorageProfissao();
+    renderizaCidade();
+    renderizaProfissao();
 
     /// botoes menu
 
@@ -444,12 +456,22 @@
         $("#div-funcionario").show();
         $("#div-cidade").hide();
         $("#div-profissao").hide();
+        selecionaCidade();
+    });
+    
+    function selecionaCidade(){
+        var funcaoFuncionario = $(".funcaoAdd").last().text();
+        $("#funcao-funcionario").val(funcaoFuncionario);
+        var areaFuncionario = $(".areaAdd").last().text();
+        $("#area-funcionario").val(areaFuncionario);
+        var estadoFuncionario = $(".estadoAdd").last().text();
+        $("#estado-funcionario").val(estadoFuncionario);
         var nomeCidade = $(".cidadeAdd").last().text();
         $("#cidade-funcionario").text(nomeCidade);
         var salario = $(".salario").last().text();
         $("#salario-funcionario").text(salario);
-
-    });
+        
+    }
 
     $("#btn-cadastro-cidade").click(function(){
         $("#div-funcionario").hide();
