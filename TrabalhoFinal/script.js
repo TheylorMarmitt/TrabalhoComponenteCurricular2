@@ -4,7 +4,7 @@
     var listaFuncionarios = [];
     var listaCidades = [];
     var listaProfissoes = [];
-
+    populaSelectCidade();
 
     // salva funcionario
     function salvarFuncionario(){
@@ -66,12 +66,29 @@
 
             }
         }
+        populaSelectCidade(cidade);
         gravaNoLocalStorageCidade();
         renderizaCidade();
+        renderizaFuncionario();
         limparCidade();
         return false;
     }
-
+    function populaSelectCidade(cidade){
+        
+       if(cidade!= undefined){
+        $('#cidade-funcionario').append('<option>'+cidade.nome+'-'+cidade.estado+'</option>');
+         
+        }
+        
+     }
+     function populaSelectProfissao(profissao){
+        
+        if(profissao!= undefined){
+         $('#funcao-funcionario').append('<option>'+profissao.funcao+'</option>');
+          
+         }
+         
+      }
     // salva profissao
     function salvarProfissao(){
         var profissao = {};
@@ -96,6 +113,7 @@
             }
         }
         gravaNoLocalStorageProfissao();
+        populaSelectProfissao(profissao);
         renderizaProfissao();
         limparProfissao();
         return false;
@@ -148,11 +166,11 @@
             let btnExcluir = $('<button>').text('Excluir');
 
             btnEditar.click(function(){
-                editarFuncionario(produto.id);
+                editarFuncionario(funcionario.id);
             });
 
             const fn_exc = function(){
-                excluirFuncionario(produto.id);
+                excluirFuncionario(funcionario.id);
             };
             btnExcluir.click(fn_exc);
 
@@ -456,7 +474,6 @@
         $("#div-funcionario").show();
         $("#div-cidade").hide();
         $("#div-profissao").hide();
-        selecionaCidade();
     });
     
     function selecionaCidade(){
