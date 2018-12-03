@@ -7,18 +7,20 @@
 
     // salva funcionario
     function salvarFuncionario(){
-        selecionaCidade();
 
         var funcionario = {};
 
         funcionario.nome = $("#nome-funcionario").val();
         funcionario.cpf = $("#cpf-funcionario").val();
         funcionario.nascimento = $("#data-funcionario").val();
-        funcionario.cidade = $("#cidade-funcionario").text();
-        funcionario.salario = $("#salario-funcionario").text();
 
-        funcionario.estado = $("#estado-funcionario").val();
+        $("#cidade-funcionario option:selected").each(function() {
+            funcionario.cidade = $(this).val();
+        }); 
+
+        funcionario.salario = $("#salario-funcionario").text();
         funcionario.funcao = $("#funcao-funcionario").val();
+        funcionario.estado = $("#estado-funcionario").val();
         funcionario.area = $("#area-funcionario").val();
         
         let id = $("#id-funcionario").val();
@@ -71,24 +73,8 @@
         limparCidade();
         return false;
     }
-    function populaSelectCidade(){
-        renderizaCidade();
-       $("#tabelaCidade #corpo-cidade tr").each(function(){
-       cidadeNome = $(this).find('td').eq(0).text();
-       cidadeEstado = $(this).find('td').eq(1).text();
-        $('#cidade-funcionario').append('<option>'+cidadeNome+'-'+cidadeEstado+'</option>');
-       })
-        
-     }
-     function populaSelectProfissao(){
-        
-        renderizaProfissao();
-        $("#tabelaProfissao #corpo-profissao tr").each(function(){
-        profissaoFuncao = $(this).find('td').eq(0).text();
-         $('#funcao-funcionario').append('<option>'+profissaoFuncao+'</option>');
-        })
-         
-      }
+
+    
     // salva profissao
     function salvarProfissao(){
         var profissao = {};
@@ -112,8 +98,9 @@
 
             }
         }
+
         gravaNoLocalStorageProfissao();
-        populaSelectProfissao(profissao);
+        //populaSelectProfissao(profissao);
         renderizaProfissao();
         limparProfissao();
         return false;
@@ -239,6 +226,8 @@
                 .append(tdSalario)
                 .append(tdOpcoes);
 
+            $('#funcao-funcionario').append('<option id='+profissao.id+'>'+profissao.funcao+'</option>');
+
             let btnEditar = $('<button>').text('Editar');
 
             let btnExcluir = $('<button>').text('Excluir');
@@ -253,6 +242,8 @@
 
             tdOpcoes.append(btnEditar).append(btnExcluir);
             tbodyProfissao.append(tr);
+
+            
         }
     }
 
@@ -466,37 +457,65 @@
     renderizaCidade();
     renderizaProfissao();
 
-    /// botoes menu
+
+    function populaSelectCidade(){
+        renderizaCidade();
+        $("#tabelaCidade #corpo-cidade tr").each(function(){
+            cidadeNome = $(this).find('td').eq(0).text();
+            cidadeEstado = $(this).find('td').eq(1).text();
+            $('#cidade-funcionario').append('<option>'+cidadeNome+'-'+cidadeEstado+'</option>');
+       })
+        
+    }
+    
+    function populaSelectProfissao(){
+        renderizaProfissao();
+        //$("#tabelaProfissao #corpo-profissao tr").each(function(){
+        //    profissaoFuncao = $(this).find('td').eq(0).text();
+        //    $('#funcao-funcionario').append('<option>'+profissaoFuncao+'</option>');
+        //})
+    }
+
+    // seleciona os dados do select
+    $( "#funcao-funcionario" ).change(function() {
+        var id = $(this).find(':selected').attr('id');
+            let profissao = findProfissaoById(id);
+            console.log(profissao);
+            $("#salario-funcionario").text(profissao.salario);
+        
+    });
+
+    $( "#cidade-funcionario" ).change(function() {
+        $("#cidade-funcionario option:selected").each(function() {
+            let cidadeSel = $(this).val();
+            $("#cidade-funcionario").val(cidadeSel);
+        }); 
+        
+    });
+
+
+    function selecionaCidade(){
+        
+    }
+
+    // botoes menu
 
     $("#div-funcionario").hide();
     $("#div-cidade").hide();
     $("#div-profissao").hide();
 
     $("#btn-cadastro-funcionario").click(function(){
-       //limpa o select para nao duplicar valores
+        //limpa o select para nao duplicar valores
         $("#cidade-funcionario").empty();
-       $("#funcao-funcionario").empty(); 
-       //popula o select
+        $("#funcao-funcionario").empty(); 
+        //popula o select
         populaSelectCidade();
         populaSelectProfissao();
         $("#div-funcionario").show();
         $("#div-cidade").hide();
         $("#div-profissao").hide();
     });
-    
-    function selecionaCidade(){
-        var funcaoFuncionario = $(".funcaoAdd").last().text();
-        $("#funcao-funcionario").val(funcaoFuncionario);
-        var areaFuncionario = $(".areaAdd").last().text();
-        $("#area-funcionario").val(areaFuncionario);
-        var estadoFuncionario = $(".estadoAdd").last().text();
-        $("#estado-funcionario").val(estadoFuncionario);
-        var nomeCidade = $(".cidadeAdd").last().text();
-        $("#cidade-funcionario").text(nomeCidade);
-        var salario = $(".salario").last().text();
-        $("#salario-funcionario").text(salario);
-        
-    }
+
     $("#btn-cadastro-cidade").click(function(){
         $("#div-funcionario").hide();
         $("#div-cidade").show();
