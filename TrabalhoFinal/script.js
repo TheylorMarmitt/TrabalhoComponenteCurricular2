@@ -459,12 +459,6 @@
 
     function populaSelectCidade(){
         renderizaCidade();
-       // $("#tabelaCidade #corpo-cidade tr").each(function(){
-       //     cidadeNome = $(this).find('td').eq(0).text();
-       //     cidadeEstado = $(this).find('td').eq(1).text();
-       //     $('#cidade-funcionario').append('<option>'+cidadeNome+'-'+cidadeEstado+'</option>');
-       //})
-        
     }
     
     function populaSelectProfissao(){
