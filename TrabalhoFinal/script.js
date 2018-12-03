@@ -4,7 +4,6 @@
     var listaFuncionarios = [];
     var listaCidades = [];
     var listaProfissoes = [];
-    populaSelectCidade();
 
     // salva funcionario
     function salvarFuncionario(){
@@ -66,27 +65,28 @@
 
             }
         }
-        populaSelectCidade(cidade);
         gravaNoLocalStorageCidade();
         renderizaCidade();
         renderizaFuncionario();
         limparCidade();
         return false;
     }
-    function populaSelectCidade(cidade){
-        
-       if(cidade!= undefined){
-        $('#cidade-funcionario').append('<option>'+cidade.nome+'-'+cidade.estado+'</option>');
-         
-        }
+    function populaSelectCidade(){
+        renderizaCidade();
+       $("#tabelaCidade #corpo-cidade tr").each(function(){
+       cidadeNome = $(this).find('td').eq(0).text();
+       cidadeEstado = $(this).find('td').eq(1).text();
+        $('#cidade-funcionario').append('<option>'+cidadeNome+'-'+cidadeEstado+'</option>');
+       })
         
      }
-     function populaSelectProfissao(profissao){
+     function populaSelectProfissao(){
         
-        if(profissao!= undefined){
-         $('#funcao-funcionario').append('<option>'+profissao.funcao+'</option>');
-          
-         }
+        renderizaProfissao();
+        $("#tabelaProfissao #corpo-profissao tr").each(function(){
+        profissaoFuncao = $(this).find('td').eq(0).text();
+         $('#funcao-funcionario').append('<option>'+profissaoFuncao+'</option>');
+        })
          
       }
     // salva profissao
@@ -136,6 +136,7 @@
 
     // renderiza Funcionario
     function renderizaFuncionario(){
+
         const tbodyFuncionario = $("#corpo-funcionario");
 
         tbodyFuncionario.html('');
@@ -176,6 +177,7 @@
 
             tdOpcoes.append(btnEditar).append(btnExcluir);
             tbodyFuncionario.append(tr);
+           
         }
     }
 
@@ -427,33 +429,33 @@
     /// funcionario
     function gravaNoLocalStorageFuncionario(){
         const listaEmJSONFuncionario = JSON.stringify(listaFuncionarios);
-        localStorage.setItem("lista", listaEmJSONFuncionario);
+        localStorage.setItem("listaFuncionario", listaEmJSONFuncionario);
     }
 
     function buscaDoLocalStorageFuncionario(){
-        const listaStorageFuncionario = localStorage.getItem("lista");
+        const listaStorageFuncionario = localStorage.getItem("listaFuncionario");
         listaFuncionarios = JSON.parse(listaStorageFuncionario) || [];
     }
 
     //// cidade
     function gravaNoLocalStorageCidade(){
         const listaEmJSONCidade = JSON.stringify(listaCidades);
-        localStorage.setItem("lista", listaEmJSONCidade);
+        localStorage.setItem("listaCidade", listaEmJSONCidade);
     }
 
     function buscaDoLocalStorageCidade(){
-        const listaStorageCidade = localStorage.getItem("lista");
+        const listaStorageCidade = localStorage.getItem("listaCidade");
         listaCidades = JSON.parse(listaStorageCidade) || [];
     }
 
     // profissao
     function gravaNoLocalStorageProfissao(){
         const listaEmJSONProfissao = JSON.stringify(listaProfissoes);
-        localStorage.setItem("lista", listaEmJSONProfissao);
+        localStorage.setItem("listaProfissao", listaEmJSONProfissao);
     }
 
     function buscaDoLocalStorageProfissao(){
-        const listaStorageProfissao = localStorage.getItem("lista");
+        const listaStorageProfissao = localStorage.getItem("listaProfissao");
         listaProfissoes = JSON.parse(listaStorageProfissao) || [];
     }
 
@@ -471,6 +473,12 @@
     $("#div-profissao").hide();
 
     $("#btn-cadastro-funcionario").click(function(){
+       //limpa o select para nao duplicar valores
+        $("#cidade-funcionario").empty();
+       $("#funcao-funcionario").empty(); 
+       //popula o select
+        populaSelectCidade();
+        populaSelectProfissao();
         $("#div-funcionario").show();
         $("#div-cidade").hide();
         $("#div-profissao").hide();
@@ -489,7 +497,6 @@
         $("#salario-funcionario").text(salario);
         
     }
-
     $("#btn-cadastro-cidade").click(function(){
         $("#div-funcionario").hide();
         $("#div-cidade").show();
