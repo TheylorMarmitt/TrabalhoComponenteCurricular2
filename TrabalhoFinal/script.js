@@ -527,5 +527,4 @@
         $("#div-profissao").show();
     });
 
-
 })();
