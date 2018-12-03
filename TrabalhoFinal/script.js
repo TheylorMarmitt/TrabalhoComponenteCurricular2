@@ -105,7 +105,6 @@
     // limpa funcionario
     function limparFuncionario(){
         $("#formulario-funcionario input").val('');
-        $("#cidade-funcionario").empty();
         $("#salario-funcionario").empty();
     }
     // limpa cidade
