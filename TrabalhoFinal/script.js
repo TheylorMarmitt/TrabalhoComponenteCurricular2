@@ -38,6 +38,9 @@
                 funcionarioExistente.salario = funcionario.salario;
             }
         }
+
+        
+
         gravaNoLocalStorageFuncionario();
         renderizaFuncionario();
         limparFuncionario();
@@ -359,9 +362,17 @@
         }
 
     }
+ 
+    // validações
 
     $("#formulario-funcionario").on("submit", function(evt){
-        salvarFuncionario();
+        var id = $("#funcao-funcionario").find(':selected').attr('id');
+        var idcity = $("#cidade-funcionario").find(':selected').attr('id');
+        if(id == undefined || idcity == undefined){
+            alert("selecione uma opção válida");
+        }else{
+            salvarFuncionario();
+        }
         evt.stopPropagation();
         evt.preventDefault();
     });
