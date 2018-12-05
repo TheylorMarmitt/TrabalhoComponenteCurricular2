@@ -43,6 +43,7 @@
 
         gravaNoLocalStorageFuncionario();
         renderizaFuncionario();
+        alert('Funcionario salvo com sucesso');
         limparFuncionario();
         return false;
     }
@@ -69,7 +70,7 @@
         }
         gravaNoLocalStorageCidade();
         renderizaCidade();
-        renderizaFuncionario();
+        alert('Cidade salva com sucesso');
         limparCidade();
         return false;
     }
@@ -101,6 +102,7 @@
 
         gravaNoLocalStorageProfissao();
         renderizaProfissao();
+        alert('Profissão salva com sucesso');
         limparProfissao();
         return false;
     }
@@ -149,16 +151,20 @@
 
             let btnEditar = $('<button>').text('Editar');
 
+            $("#div-profissao").hide();
             let btnExcluir = $('<button>').text('Excluir');
 
             btnEditar.click(function(){
                 editarFuncionario(funcionario.id);
             });
 
+            $("#div-funcionario").hide();
             const fn_exc = function(){
+                $("#div-profissao").hide();
                 excluirFuncionario(funcionario.id);
             };
             btnExcluir.click(fn_exc);
+            $("#div-funcionario").hide();
 
             tdOpcoes.append(btnEditar).append(btnExcluir);
             tbodyFuncionario.append(tr);
@@ -508,28 +514,43 @@
 
     $("#btn-cadastro-funcionario").click(function(){
         //limpa o select para nao duplicar valores
-        $("#cidade-funcionario").empty();
-        $("#funcao-funcionario").empty(); 
-        $('#funcao-funcionario').append('<option selected="selected">Selecione a profissão</option>');
-        $('#cidade-funcionario').append('<option selected="selected">Selecione a cidade</option>');
+      
         //popula o select
-        populaSelectCidade();
-        populaSelectProfissao();
+       
         $("#div-funcionario").show();
         $("#div-cidade").hide();
-        $("#div-profissao").hide();
     });
 
-    $("#btn-cadastro-cidade").click(function(){
-        $("#div-funcionario").hide();
-        $("#div-cidade").show();
-        $("#div-profissao").hide();
-    });
 
-    $("#btn-cadastro-profissao").click(function(){
-        $("#div-funcionario").hide();
-        $("#div-cidade").hide();
-        $("#div-profissao").show();
+    
+
+
+    $("nav ul li button")
+    .click(function(){
+        var button = $(this).attr('id');
+
+        if(button == 'btn-cadastro-funcionario'){
+            $("#div-funcionario").show();
+            $("#cidade-funcionario").empty();
+            $("#funcao-funcionario").empty(); 
+            $('#funcao-funcionario')
+            .append('<option selected="selected">Selecione a profissão</option>');
+            $('#cidade-funcionario')
+            .append('<option selected="selected">Selecione a cidade</option>');
+            populaSelectCidade();
+            populaSelectProfissao();
+            $("#div-profissao, #div-cidade").hide();
+        }
+        if(button == 'btn-cadastro-cidade'){
+            $("#div-cidade").show();
+            $("#div-funcionario, #div-profissao").hide();
+        }
+        if(button == 'btn-cadastro-profissao'){
+            $("#div-profissao").show();
+            $("#div-funcionario, #div-cidade").hide();
+            
+        }
+
     });
 
 })();
